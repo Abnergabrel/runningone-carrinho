@@ -1,115 +1,12 @@
-const moeda = valor => valor.toLocaleString("pt-BR", {style: "currency", currency: "BRL"})
-//Criando Array com os produtos
-const listaProdutos = [
-    {id: 1, nome: "Olympikus Corre 3", preco: 399, imagem: "Corre3.png"},
-    {id: 2, nome: "Olympikus Corre Grafeno 3", preco: 799, imagem: "G-Corre3.png"},
-    {id: 3, nome: "Nike ZoomX Vaporfly 3", preco: 1719, imagem: "Nike.png"},
-    {id: 4, nome: "ASICS Superblast 2", preco: 1599, imagem: "Asics.webp"}
-]
-//Pegando elementos do HTML
-const containerProdutos = document.getElementById("produtos")
-const barraPesquisa = document.getElementById("barraPesquisa")
-const listCarrinho = document.getElementById("listaCarrinho")
-const botaoCarrinho = document.getElementById("botaoCarrinho")
-const botaoLoja = document.getElementById("botaoLoja")
-const divCarrinho = document.getElementById("carrinho")
-const totalCarrinho = document.getElementById("totalCarrinho")
-//Carrinho de compras
-let carrinho = []
-//Função que mostra os produtos
-function mostrarProdutos(lista){
-    containerProdutos.innerHTML = ""
-    lista.forEach(produto => {
-        const card = document.createElement("div")
-        card.className = "card"
-        card.innerHTML = `
-        <img src="${produto.imagem}" alt ="${produto.nome}">
-        <h3>${produto.nome}</h3>
-        <p>${moeda(produto.preco)}</p>
-        <button onclick="adicionaCarrinho(${produto.id})">Adicionar ao Carrinho</button>
-        `
-        containerProdutos.appendChild(card)
-    })
-}
-//Adicioar ao carrinho
-function adicionaCarrinho(idProduto){
-    const produtoSelecionado = listaProdutos.find(prod => prod.id === idProduto)
-    if (!produtoSelecionado) return
-    const itemExistente = carrinho.find(item => item.id === idProduto)
-    if(itemExistente){
-        itemExistente.quantidade += 1
-} else {
-    carrinho.push({...produtoSelecionado, quantidade: 1})
-}
-atualizarCarrinho()
-}
-//Diminuir a quantidade no carrinho
-function diminuirQuantidade(idProduto){
-    const itemExistente = carrinho.find(item => item.id === idProduto)
-    if(itemExistente){
-        itemExistente.quantidade -= 1
-        if(itemExistente.quantidade <= 0){
-            removerDoCarrinho(idProduto)
-            return
-        }
-        atualizarCarrinho()
-    }
-}
-//Remover do carrinho
-function removerDoCarrinho(idProduto){
-    carrinho = carrinho.filter(item => item.id !== idProduto)
-    atualizarCarrinho()
-}
-//Atualizar Carrinho
-function atualizarCarrinho(){
-    listCarrinho.innerHTML = ""
-    carrinho.forEach(item => {
-        const li = document.createElement("li")
-        li.innerHTML = `
-        <span>${item.nome}</span>
-        <span>${item.quantidade}</span>
-        <span>${moeda(item.preco * item.quantidade)}</span>
-        <span> 
-            <button class="aumentar" onclick="adicionaCarrinho(${item.id})">+</button>
-            <button class="diminuir" onclick="diminuirQuantidade(${item.id})">-</button>
-            <button class="remover" onclick="removerDoCarrinho(${item.id})">Remover</button>
-            </span>
-            `
-            listCarrinho.appendChild(li)
-    })
-    calcularTotal()
-}
-//Calcular Total  pagar
-function calcularTotal(){
-    let total = 0
-    carrinho.forEach(item => {
-        total += item.preco * item.quantidade
-    })
-    totalCarrinho.innerHTML = `<strong> Total: ${moeda(total)}</strong>`
-}
-//Barra de pesquisa
-barraPesquisa.addEventListener("input", () => {
-    const textoPesquisa = barraPesquisa.value.toLowerCase()
-    const produtosFiltrados = listaProdutos.filter(produtos => produtos.nome.toLowerCase().includes(textoPesquisa)
-)
-mostrarProdutos(produtosFiltrados)
-}) 
-//Botão Ver Carrinho
-botaoCarrinho.addEventListener("click", () => {
-    containerProdutos.style.display = "none"
-    barraPesquisa.style.display = "none"
-    divCarrinho.style.display = "block"
-    botaoCarrinho.style.display = "none"
-    botaoLoja.style.display = "inline"
-})
-//Botão voltar para a loja
-botaoLoja.addEventListener("click", () => {
-    containerProdutos.style.display = "flex"
-    barraPesquisa.style.display = "block"
-    divCarrinho.style.display = "none"
-    botaoCarrinho.style.display = "inline"
-    botaoLoja.style.display = "none"
-})
-//inicialização
-mostrarProdutos(listaProdutos)
-atualizarCarrinho()
+const products=[{id:1,name:'Olympikus Corre 3',brand:'Olympikus',price:399,image:'Corre3.png',tag:'SEU TREINO DIÁRIO',description:'Um modelo do catálogo para acompanhar o próximo passo da sua rotina.'},{id:2,name:'Olympikus Corre Grafeno 3',brand:'Olympikus',price:799,image:'G-Corre3.png',tag:'UM PASSO ALÉM',description:'Uma das opções da seleção RunningOne. Explore as numerações e monte sua sacola.'},{id:3,name:'Nike ZoomX Vaporfly 3',brand:'Nike',price:1719,image:'Nike.png',tag:'RITMO ACELERADO',description:'O destaque visual desta seleção. Um projeto demonstrativo, sem estoque ou venda real.'},{id:4,name:'ASICS Superblast 2',brand:'ASICS',price:1599,image:'Asics.webp',tag:'VÁ MAIS LONGE',description:'Outra escolha para o seu catálogo de corrida. Compare os modelos e experimente o carrinho.'}];
+const $=s=>document.querySelector(s),money=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});let brand='all',selected=null,size=null,toastTimer,bag=[];
+try{const stored=JSON.parse(localStorage.getItem('runningone-bag-v2')||'[]');if(Array.isArray(stored))bag=stored.filter(i=>products.some(p=>p.id===i.id)&&Number.isInteger(i.size)&&i.size>=37&&i.size<=44&&Number.isInteger(i.quantity)&&i.quantity>0&&i.quantity<=99);}catch{}
+function save(){try{localStorage.setItem('runningone-bag-v2',JSON.stringify(bag));}catch{notify('A sacola funciona nesta sessão, mas não pôde ser salva no navegador.');}}
+function notify(text){$('#toast').textContent=text;$('#toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('show'),2800);}
+function renderProducts(){const term=$('#search').value.trim().toLocaleLowerCase('pt-BR');let filtered=products.filter(p=>(brand==='all'||p.brand===brand)&&p.name.toLocaleLowerCase('pt-BR').includes(term));if($('#sort').value==='low')filtered.sort((a,b)=>a.price-b.price);if($('#sort').value==='high')filtered.sort((a,b)=>b.price-a.price);$('#products').replaceChildren();filtered.forEach(p=>{const card=document.createElement('article');card.className='product-card';card.innerHTML=`<button class="product-image" aria-label="Ver ${p.name}" data-product="${p.id}"><span class="product-tag">${p.tag}</span><img src="${p.image}" alt="${p.name}" loading="lazy"><span class="product-plus">+</span></button><p class="product-brand">${p.brand.toUpperCase()}</p><h3>${p.name}</h3><div class="product-foot"><strong>${money(p.price)}</strong><span>37 — 44</span></div>`;$('#products').append(card);});$('#result-count').textContent=`${filtered.length} ${filtered.length===1?'modelo encontrado':'modelos encontrados'}`;$('#empty-search').hidden=filtered.length>0;}
+function openProduct(id){selected=products.find(p=>p.id===id);if(!selected)return;size=null;$('#product-title').textContent=selected.name;$('#product-brand').textContent=selected.brand.toUpperCase()+' / '+selected.tag;$('#product-price').textContent=money(selected.price);$('#product-description').textContent=selected.description;$('#product-image').src=selected.image;$('#product-image').alt=selected.name;$('#size-error').textContent='';$('#sizes').replaceChildren();for(let n=37;n<=44;n++){const b=document.createElement('button');b.type='button';b.textContent=n;b.setAttribute('aria-label','Número '+n);b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>{size=n;$('#size-error').textContent='';$('#sizes').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));});$('#sizes').append(b);}$('#product-dialog').showModal();document.body.classList.add('modal-open');}
+function renderBag(){const total=bag.reduce((sum,i)=>sum+products.find(p=>p.id===i.id).price*i.quantity,0);$('#bag-count').textContent=bag.reduce((sum,i)=>sum+i.quantity,0);$('#bag-total').textContent=money(total);$('#bag-items').replaceChildren();if(!bag.length){const p=document.createElement('p');p.className='bag-empty';p.textContent='Sua próxima corrida começa aqui. Escolha um modelo para montar a sua sacola.';$('#bag-items').append(p);}bag.forEach(i=>{const p=products.find(p=>p.id===i.id);const card=document.createElement('article');card.className='bag-item';card.innerHTML=`<img src="${p.image}" alt="${p.name}"><div><h3>${p.name}</h3><p>TAMANHO ${i.size}</p><strong class="bag-item-price">${money(p.price*i.quantity)}</strong><div class="bag-quantity"><button data-action="minus" data-id="${i.id}" data-size="${i.size}" aria-label="Diminuir quantidade de ${p.name}">−</button><span>${i.quantity}</span><button data-action="plus" data-id="${i.id}" data-size="${i.size}" aria-label="Aumentar quantidade de ${p.name}">+</button><button class="remove" data-action="remove" data-id="${i.id}" data-size="${i.size}" aria-label="Remover ${p.name}">Remover</button></div></div>`;$('#bag-items').append(card);});}
+$('#products').addEventListener('click',e=>{const b=e.target.closest('[data-product]');if(b)openProduct(Number(b.dataset.product));});$('#search').addEventListener('input',renderProducts);$('#sort').addEventListener('change',renderProducts);document.querySelectorAll('[data-brand]').forEach(b=>b.addEventListener('click',()=>{brand=b.dataset.brand;document.querySelectorAll('[data-brand]').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b));});renderProducts();}));$('#clear-filters').addEventListener('click',()=>{$('#search').value='';document.querySelector('[data-brand="all"]').click();});
+$('#add-to-bag').addEventListener('click',()=>{if(!selected)return;if(!size){$('#size-error').textContent='Escolha uma numeração para continuar.';return;}const item=bag.find(i=>i.id===selected.id&&i.size===size);if(item){if(item.quantity>=99){notify('O limite demonstrativo é de 99 unidades por item.');return;}item.quantity++;}else bag.push({id:selected.id,size,quantity:1});save();renderBag();$('#product-dialog').close();notify('Pronto! Seu modelo foi adicionado à sacola.');});
+$('#open-bag').addEventListener('click',()=>{renderBag();$('#bag-dialog').showModal();document.body.classList.add('modal-open');});$('#continue-shopping').addEventListener('click',()=>$('#bag-dialog').close());$('#bag-items').addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(!b)return;const i=bag.find(x=>x.id===Number(b.dataset.id)&&x.size===Number(b.dataset.size));if(!i)return;if(b.dataset.action==='remove')bag=bag.filter(x=>x!==i);if(b.dataset.action==='minus'){i.quantity--;bag=bag.filter(x=>x.quantity>0);}if(b.dataset.action==='plus'){if(i.quantity>=99){notify('O limite demonstrativo é de 99 unidades por item.');return;}i.quantity++;}save();renderBag();});
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.close).close()));document.querySelectorAll('dialog').forEach(d=>{d.addEventListener('close',()=>document.body.classList.toggle('modal-open',!!document.querySelector('dialog[open]')));d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}});});renderProducts();renderBag();

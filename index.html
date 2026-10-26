@@ -1,43 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Running One</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-  <nav>
-    <div class="container">
-      <button id="botaoCarrinho">Ver Carrinho</button>
-      <button id="botaoLoja" style="display: none;">Voltar à Loja</button>
-    </div>
-  </nav>
-
-  <div class="container">
-
-    <!-- Loja -->
-    <h1>Running One</h1>
-<p>Catálogo demonstrativo com carrinho. Não realiza compras ou pagamentos.</p>
-    <input type="text" aria-label="Pesquisar produto" id="barraPesquisa" placeholder="Pesquisar produto...">
-    <div id="produtos"></div>
-
-    <!-- Carrinho -->
-    <div id="carrinho" style="display: none;">
-      <h2>Carrinho</h2>
-      <div class="cabecalho-carrinho">
-        <span>Produto</span>
-        <span>Quantidade</span>
-        <span>Valor</span>
-        <span>Ações</span>
-      </div>
-      <ul id="listaCarrinho"></ul>
-      <div id="totalCarrinho"></div>
-    </div>
-
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RunningOne — Encontre seu próximo ritmo</title><meta name="description" content="Catálogo demonstrativo de tênis de corrida com pesquisa, filtros e sacola interativa."><meta name="theme-color" content="#171b16"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body>
+<div class="announcement">MENOS DESCULPAS. MAIS QUILÔMETROS. <span>PROJETO DEMONSTRATIVO / SEM VENDAS REAIS</span></div><header><a class="logo" href="#inicio" aria-label="RunningOne início">RUNNING<span>ONE</span><i>↗</i></a><nav aria-label="Principal"><a href="#catalogo">Encontre seu par</a><a href="#manifesto">Nosso ritmo</a></nav><button id="open-bag" class="bag-button" aria-label="Abrir sacola">Sacola <span id="bag-count">0</span> ↗</button></header>
+<main><section class="hero" id="inicio"><div class="hero-copy"><p class="eyebrow">PARA QUEM NÃO NASCEU PARA FICAR PARADO</p><h1>SEU PRÓXIMO<br><span>RITMO.</span></h1><p>O próximo quilômetro começa com uma escolha.<br>Encontre o par que acompanha você.</p><a class="primary" href="#catalogo">ENCONTRE SEU PAR <span>↗</span></a><div class="hero-bottom"><span>01 / PERFORMANCE EM MOVIMENTO</span><span>ROLE PARA EXPLORAR ↓</span></div></div><div class="hero-art"><div class="hero-circle"></div><span class="hero-outline" aria-hidden="true">RUN.</span><img src="Nike.png" alt="Nike ZoomX Vaporfly 3 rosa" fetchpriority="high"><span class="hero-coordinate">VELOCIDADE<br>SEM ROTEIRO.</span><div class="hero-product"><span>DESTAQUE DO CATÁLOGO</span><strong>NIKE ZOOMX VAPORFLY 3</strong><span>R$ 1.719,00 <a href="#catalogo" aria-label="Encontrar Nike no catálogo">↗</a></span></div><span class="vertical">FIND YOUR PACE — RUNNINGONE</span></div></section>
+<div class="marquee" aria-hidden="true"><div>CORRA NO SEU RITMO <span>✳</span> VÁ ALÉM DO ÓBVIO <span>✳</span> CORRA NO SEU RITMO <span>✳</span> VÁ ALÉM DO ÓBVIO <span>✳</span></div></div>
+<section id="catalogo" class="catalog"><div class="section-head"><div><p class="eyebrow">SELEÇÃO / 04 MODELOS</p><h2>ESCOLHA SEU<br><span>PRÓXIMO PASSO.</span></h2></div><p>Quatro modelos. Diferentes caminhos.<br>Uma vontade de seguir em frente.</p></div><div class="catalog-toolbar"><div class="brand-filters" role="group" aria-label="Filtrar por marca"><button data-brand="all" class="active" aria-pressed="true">Todos</button><button data-brand="Olympikus" aria-pressed="false">Olympikus</button><button data-brand="Nike" aria-pressed="false">Nike</button><button data-brand="ASICS" aria-pressed="false">ASICS</button></div><div class="search-sort"><label class="search">⌕ <input id="search" type="search" placeholder="Buscar seu próximo tênis" aria-label="Pesquisar produto"></label><select id="sort" aria-label="Ordenar produtos"><option value="featured">Destaques</option><option value="low">Menor preço</option><option value="high">Maior preço</option></select></div></div><p id="result-count" class="result-count" aria-live="polite"></p><div id="products" class="products"></div><div id="empty-search" class="empty" hidden><h3>Nenhum par por aqui.</h3><p>Tente outra busca ou escolha outra marca.</p><button id="clear-filters">Limpar filtros ↗</button></div></section>
+<section class="manifesto" id="manifesto"><span>UM PASSO DE CADA VEZ.</span><h2>O MELHOR RITMO<br>É O <em>SEU.</em></h2><p>RunningOne é um projeto de interface e interação.<br>Explore produtos, escolha uma numeração e monte sua sacola.<br>Sem vendas, pagamentos ou envio de dados pessoais.</p><a href="#catalogo">VOLTAR PARA A PISTA ↗</a></section></main><footer><a class="logo" href="#inicio">RUNNING<span>ONE</span><i>↗</i></a><p>PROJETO DE ESTUDO DE ABNER GABRIEL.<br>Marcas e imagens pertencem aos seus respectivos titulares.</p><a href="https://github.com/Abnergabrel/runningone-carrinho" target="_blank" rel="noopener noreferrer">Ver código ↗</a></footer>
+<dialog id="product-dialog" aria-labelledby="product-title"><button class="close-dialog" data-close="product-dialog" aria-label="Fechar produto">✕</button><div class="product-dialog-grid"><div class="product-photo"><img id="product-image" alt=""></div><div class="product-details"><p class="eyebrow" id="product-brand"></p><h2 id="product-title"></h2><p id="product-description"></p><strong class="product-price" id="product-price"></strong><fieldset><legend>QUAL É O SEU NÚMERO?</legend><div id="sizes" class="sizes"></div></fieldset><p id="size-error" class="error" role="alert"></p><button id="add-to-bag" class="primary">ADICIONAR À SACOLA <span>+</span></button><small>Catálogo demonstrativo. Sem checkout ou compra real.</small></div></div></dialog>
+<dialog id="bag-dialog" aria-labelledby="bag-title"><div class="bag-head"><div><p class="eyebrow">SEU PRÓXIMO MOVIMENTO</p><h2 id="bag-title">SUA SACOLA.</h2></div><button class="close-inline" data-close="bag-dialog" aria-label="Fechar sacola">✕</button></div><div id="bag-items"></div><div class="bag-summary"><div><span>SUBTOTAL</span><strong id="bag-total">R$ 0,00</strong></div><p>Frete não calculado. Esta é uma demonstração de carrinho, sem pagamentos ou pedidos reais.</p><button class="primary" id="continue-shopping">CONTINUAR EXPLORANDO <span>↗</span></button></div></dialog><div id="toast" class="toast" role="status" aria-live="polite"></div><script src="script.js"></script></body></html>

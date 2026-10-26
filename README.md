@@ -1,27 +1,37 @@
-# RunningOne — Catálogo e carrinho
+# RunningOne — Encontre seu próximo ritmo
 
 ![Interface do projeto](preview.jpg)
 
-Simulação de catálogo de tênis com busca, carrinho, quantidade e total em reais.
+Catálogo demonstrativo de tênis de corrida, com identidade esportiva, pesquisa, marcas, ordenação e sacola por numeração.
 
 ## Tecnologias
 
-HTML, CSS e JavaScript, sem instalação de dependências para executar.
+HTML, CSS e JavaScript, sem instalação de dependências. As fontes são carregadas do Google Fonts.
 
 ## Executar
 
-Baixe os arquivos e abra `index.html` em um navegador moderno. Mantenha todos os arquivos na mesma pasta. Também é possível servir a pasta com um servidor HTTP local.
+Baixe os arquivos e abra `index.html` em um navegador moderno, mantendo as imagens, estilos e scripts na mesma pasta. Também é possível servir a pasta em um servidor HTTP local.
 
-## Verificar os fluxos
+## Funcionalidades
 
-1. Pesquise por Nike e confira a filtragem.
-2. Adicione produtos e abra o carrinho.
-3. Aumente e diminua quantidades, remova itens e confira o total.
+- Pesquisa por nome e filtros por marca.
+- Ordenação por preço e estados sem resultados.
+- Seleção de numeração obrigatória.
+- Sacola com quantidade, remoção e subtotal.
+- Persistência local da sacola com validação de formato.
 
-## Escopo e limitações
+## Verificação manual
 
-Os produtos são demonstrativos. Não há checkout, pagamento, autenticação ou persistência do carrinho. Marcas e imagens são usadas no contexto do estudo; não há vínculo comercial declarado.
+1. Buscar Nike e conferir o resultado.
+2. Abrir o produto e tentar adicionar sem numeração: deve ser recusado.
+3. Escolher tamanho, adicionar, aumentar/diminuir e remover.
+4. Recarregar e conferir a sacola.
+5. Buscar algo inexistente e limpar filtros.
 
-## Origem
+## Escopo
 
-Projeto de estudo de [Abner Gabriel](https://github.com/Abnergabrel), separado da pasta [RunningOne](https://github.com/Abnergabrel/JavaScript/tree/main/RunningOne) para apresentação independente. Esta versão recebeu ajustes de funcionamento e documentação. O material original permanece preservado.
+Não há estoque real, checkout, frete, pagamento ou envio de pedidos. As marcas e imagens fazem parte do estudo e pertencem aos titulares. Os dados da sacola ficam somente no navegador.
+
+## Autoria e evolução
+
+Projeto de estudo de [Abner Gabriel](https://github.com/Abnergabrel). Versão reformulada em 26/10/2026, mantendo o histórico do repositório.
